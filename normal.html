@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Tinny's - Um Site Interativo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Define a fonte padrão para o corpo do documento */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f4f4; /* Fundo padrão claro */
+            color: #333; /* Texto padrão escuro */
+        }
+        /* Estilos para a barra lateral */
+        .sidebar {
+            background-color: #ffb3e0; /* Rosa claro */
+            color: #fff;
+        }
+        /* Estilos para a barra de navegação superior */
+        .top-nav {
+            background-color: #ffe6f2; /* Rosa muito claro */
+        }
+        .top-nav a {
+            color: #333; /* Links escuros */
+        }
+        .top-nav a:hover {
+            color: #d946ef; /* Rosa mais escuro no hover */
+        }
+        /* Estilos para o conteúdo principal */
+        .main-content {
+            background-color: #fff; /* Fundo branco para conteúdo */
+        }
+        /* Estilos para os cartões de conteúdo */
+        .content-card {
+            background-color: #ffe6f2; /* Fundo rosa claro para cartões */
+        }
+        /* Estilos para o botão de minijogo */
+        .minigame-button {
+            padding: 10px 20px;
+            border-radius: 8px;
+            background-color: #6a0dad; /* Roxo vibrante */
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .minigame-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        .minigame-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="flex flex-col md:flex-row min-h-screen w-full">
+        <aside class="sidebar bg-pink-400 text-white p-6 w-full md:w-64 flex-shrink-0 rounded-r-lg shadow-lg">
+            <h2 class="text-2xl font-bold mb-6 text-center">Opções</h2>
+            <p class="text-sm text-center">Nenhuma opção de personalização disponível.</p>
+        </aside>
+
+        <main class="flex-grow flex flex-col bg-white rounded-l-lg shadow-lg">
+            <nav class="top-nav bg-pink-200 p-4 flex justify-end items-center rounded-tl-lg">
+                <ul class="flex space-x-6">
+                    <li><a href="#home" class="text-gray-700 hover:text-pink-700 font-medium text-lg transition duration-300 ease-in-out" data-section="home">Início</a></li>
+                    <li><a href="#about" class="text-gray-700 hover:text-pink-700 font-medium text-lg transition duration-300 ease-in-out" data-section="about">Sobre</a></li>
+                    <li><a href="#characters" class="text-gray-700 hover:text-pink-700 font-medium text-lg transition duration-300 ease-in-out" data-section="characters">Personagens</a></li>
+                    <li><a href="#minigames" class="text-gray-700 hover:text-pink-700 font-medium text-lg transition duration-300 ease-in-out" data-section="minigames">Minijogos</a></li>
+                </ul>
+            </nav>
+
+            <section id="content-display" class="p-8 flex-grow overflow-y-auto">
+                <div id="home-section" class="content-card bg-pink-100 p-8 rounded-lg shadow-md transition-all duration-300 ease-in-out">
+                    <h1 class="text-4xl font-extrabold text-pink-700 mb-6">Bem-vindo ao Hello Tinny's!</h1>
+                    <p class="text-lg leading-relaxed text-gray-700 mb-4">Explore um mundo de diversão e interatividade. Navegue pelas nossas seções para descobrir mais sobre o que oferecemos.</p>
+                    <p class="text-lg leading-relaxed text-gray-700">Nosso objetivo é proporcionar uma experiência agradável e envolvente para todos os nossos visitantes.</p>
+                </div>
+
+                <div id="about-section" class="hidden content-card bg-blue-100 p-8 rounded-lg shadow-md transition-all duration-300 ease-in-out">
+                    <h1 class="text-4xl font-extrabold text-blue-700 mb-6">Sobre a Hello Tinny's</h1>
+                    <p class="text-lg leading-relaxed text-gray-700 mb-4">A Hello Tinny's é um projeto dedicado a criar experiências digitais divertidas e envolventes. Nossa equipe é apaixonada por desenvolver conteúdo que traga alegria e entretenimento para pessoas de todas as idades.</p>
+                    <h2 class="text-3xl font-bold text-blue-600 mt-8 mb-4">Nossa Equipe</h2>
+                    <p class="text-lg leading-relaxed text-gray-700 mb-4">Somos uma equipe criativa e colaborativa de entusiastas de tecnologia e design, trabalhando juntos para dar vida às nossas ideias.</p>
+                    <h2 class="text-3xl font-bold text-blue-600 mt-8 mb-4">Nossos Valores</h2>
+                    <ul class="list-disc list-inside text-lg leading-relaxed text-gray-700">
+                        <li>Criatividade: Inovamos constantemente para oferecer algo novo e empolgante.</li>
+                        <li>Diversão: Acreditamos que o aprendizado e a interação devem ser divertidos.</li>
+                        <li>Qualidade: Nosso compromisso é com a excelência em cada detalhe.</li>
+                    </ul>
+                </div>
+
+                <div id="characters-section" class="hidden content-card bg-green-100 p-8 rounded-lg shadow-md transition-all duration-300 ease-in-out">
+                    <h1 class="text-4xl font-extrabold text-green-700 mb-6">Conheça Nossos Personagens</h1>
+                    <p class="text-lg leading-relaxed text-gray-700 mb-4">Nossos personagens são os corações e almas do Hello Tinny's! Cada um deles traz uma personalidade única e histórias cativantes para você explorar.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+                        <div class="character-card bg-white p-6 rounded-lg shadow-md text-center">
+                            <i class="fas fa-star text-5xl text-green-500 mb-4"></i>
+                            <h2 class="text-2xl font-bold text-green-600 mb-2">Tinny, o Aventureiro</h2>
+                            <p class="text-gray-700">Tinny adora explorar novos mundos e descobrir segredos escondidos. Junte-se a ele em suas jornadas!</p>
+                        </div>
+                        <div class="character-card bg-white p-6 rounded-lg shadow-md text-center">
+                            <i class="fas fa-heart text-5xl text-green-500 mb-4"></i>
+                            <h2 class="text-2xl font-bold text-green-600 mb-2">Luma, a Amiga Leal</h2>
+                            <p class="text-gray-700">Luma é sempre gentil e está pronta para ajudar seus amigos em qualquer desafio.</p>
+                        </div>
+                        <div class="character-card bg-white p-6 rounded-lg shadow-md text-center">
+                            <i class="fas fa-brain text-5xl text-green-500 mb-4"></i>
+                            <h2 class="text-2xl font-bold text-green-600 mb-2">Professor Coruja, o Sábio</h2>
+                            <p class="text-gray-700">O Professor Coruja compartilha seu vasto conhecimento e adora resolver enigmas complexos.</p>
+                        </div>
+                        <div class="character-card bg-white p-6 rounded-lg shadow-md text-center">
+                            <i class="fas fa-gamepad text-5xl text-green-500 mb-4"></i>
+                            <h2 class="text-2xl font-bold text-green-600 mb-2">Sparky, o Brincalhão</h2>
+                            <p class="text-gray-700">Sparky é cheio de energia e sempre pronto para uma boa brincadeira e um jogo divertido.</p>
+                        </div>
+                        <div class="character-card bg-white p-6 rounded-lg shadow-md text-center">
+                            <i class="fas fa-magic text-5xl text-green-500 mb-4"></i>
+                            <h2 class="text-2xl font-bold text-green-600 mb-2">Melody, a Cantora</h2>
+                            <p class="text-gray-700">Melody encanta a todos com sua voz suave e suas melodias mágicas.</p>
+                        </div>
+                        <div class="character-card bg-white p-6 rounded-lg shadow-md text-center">
+                            <i class="fas fa-leaf text-5xl text-green-500 mb-4"></i>
+                            <h2 class="text-2xl font-bold text-green-600 mb-2">Florin, o Guardião da Natureza</h2>
+                            <p class="text-gray-700">Florin cuida do jardim e ensina sobre a beleza e a importância do meio ambiente.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="minigames-section" class="hidden content-card bg-purple-100 p-8 rounded-lg shadow-md transition-all duration-300 ease-in-out">
+                    <h1 class="text-4xl font-extrabold text-purple-700 mb-6">Minijogos</h1>
+                    <p class="text-lg leading-relaxed text-gray-700 mb-4">Divirta-se com nossa coleção de minijogos. Eles são simples, divertidos e feitos para todos!</p>
+                    <div class="flex flex-col items-center justify-center mt-8 space-y-6">
+                        <div class="game-area bg-white p-8 rounded-lg shadow-lg text-center w-full max-w-md">
+                            <h2 class="text-3xl font-bold text-purple-600 mb-4">Jogo da Memória Simples</h2>
+                            <p id="game-message" class="text-lg text-gray-700 mb-6">Clique no botão para iniciar o jogo!</p>
+                            <button id="start-game-button" class="minigame-button">Iniciar Jogo</button>
+                            <div id="game-board" class="grid grid-cols-4 gap-4 mt-6 hidden">
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Seleciona elementos HTML importantes para interatividade
+        const body = document.body; // O elemento <body> para aplicar classes de tema
+        const navLinks = document.querySelectorAll('.top-nav a'); // Todos os links da navegação superior
+        const contentSections = document.querySelectorAll('#content-display > div'); // Todas as divs de conteúdo
+
+        // Objeto de traduções para diferentes idiomas (mantido para a funcionalidade de idioma, se for reintroduzida)
+        // Por enquanto, o site está apenas em Português.
+        const translations = {
+            pt: {
+                appTitle: 'Hello Tinny\'s - Um Site Interativo',
+                personalizationTitle: 'Opções',
+                languagesTitle: 'Idiomas', // Mantido no objeto, mas não usado na UI
+                langPT: 'Português',
+                langEN: 'English',
+                langES: 'Español',
+                langFR: 'Français',
+                langRU: 'Русский',
+                darkThemeTitle: 'Tema Escuro', // Mantido no objeto, mas não usado na UI
+                lightThemeTitle: 'Tema Claro', // Mantido no objeto, mas não usado na UI
+                navHome: 'Início',
+                navAbout: 'Sobre',
+                navCharacters: 'Personagens',
+                navMinigames: 'Minijogos',
+                homeTitle: 'Bem-vindo ao Hello Tinny\'s!',
+                homeParagraph1: 'Explore um mundo de diversão e interatividade. Navegue pelas nossas seções para descobrir mais sobre o que oferecemos.',
+                homeParagraph2: 'Nosso objetivo é proporcionar uma experiência agradável e envolvente para todos os nossos visitantes.',
+                aboutTitle: 'Sobre a Hello Tinny\'s',
+                aboutParagraph1: 'A Hello Tinny\'s é um projeto dedicado a criar experiências digitais divertidas e envolventes. Nossa equipe é apaixonada por desenvolver conteúdo que traga alegria e entretenimento para pessoas de todas as idades.',
+                teamTitle: 'Nossa Equipe',
+                teamParagraph: 'Somos uma equipe criativa e colaborativa de entusiastas de tecnologia e design, trabalhando juntos para dar vida às nossas ideias.',
+                valuesTitle: 'Nossos Valores',
+                valueInclusion: 'Criatividade: Inovamos constantemente para oferecer algo novo e empolgante.',
+                valueInnovation: 'Diversão: Acreditamos que o aprendizado e a interação devem ser divertidos.',
+                valueEmpathy: 'Qualidade: Nosso compromisso é com a excelência em cada detalhe.',
+                charactersMainTitle: 'Conheça Nossos Personagens',
+                charactersIntro: 'Nossos personagens são os corações e almas do Hello Tinny\'s! Cada um deles traz uma personalidade única e histórias cativantes para você explorar.',
+                charTinaTitle: 'Tinny, o Aventureiro',
+                charTinaDesc: 'Tinny adora explorar novos mundos e descobrir segredos escondidos. Junte-se a ele em suas jornadas!',
+                charContrastTitle: 'Luma, a Amiga Leal',
+                charContrastDesc: 'Luma é sempre gentil e está pronta para ajudar seus amigos em qualquer desafio.',
+                charColorBlindTitle: 'Professor Coruja, o Sábio',
+                charColorBlindDesc: 'O Professor Coruja compartilha seu vasto conhecimento e adora resolver enigmas complexos.',
+                charLingoTitle: 'Sparky, o Brincalhão',
+                charLingoDesc: 'Sparky é cheio de energia e sempre pronto para uma boa brincadeira e um jogo divertido.',
+                charNocturneTitle: 'Melody, a Cantora',
+                charNocturneDesc: 'Melody encanta a todos com sua voz suave e suas melodias mágicas.',
+                charLuminusTitle: 'Florin, o Guardião da Natureza',
+                charLuminusDesc: 'Florin cuida do jardim e ensina sobre a beleza e a importância do meio ambiente.',
+                minigamesTitle: 'Minijogos',
+                minigamesIntro: 'Divirta-se com nossa coleção de minijogos. Eles são simples, divertidos e feitos para todos!',
+                memoryGameTitle: 'Jogo da Memória Simples',
+                memoryGameMessage: 'Clique no botão para iniciar o jogo!',
+                startGameButton: 'Iniciar Jogo'
+            }
+        };
+
+        // Função para atualizar o conteúdo da página com base no idioma selecionado
+        // Esta função ainda existe, mas o seletor de idioma foi removido da UI.
+        function updateContentLanguage(lang) {
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.dataset.key;
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            document.title = translations[lang].appTitle;
+        }
+
+        // Função para mostrar a seção de conteúdo correta e ocultar as outras
+        function showSection(sectionId) {
+            contentSections.forEach(section => {
+                section.classList.add('hidden'); // Oculta todas as seções
+            });
+            document.getElementById(sectionId).classList.remove('hidden'); // Mostra a seção desejada
+        }
+
+        // Define a seção inicial a ser exibida ao carregar a página
+        showSection('home-section'); // Exibe a seção "Início" por padrão
+        // Define o idioma inicial ao carregar a página (Português por padrão)
+        updateContentLanguage('pt'); // O site agora está apenas em Português.
+
+        // Adiciona um ouvinte de evento para cada link de navegação
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // Previne o comportamento padrão do link (navegar para outra página)
+                const sectionId = this.dataset.section + '-section'; // Obtém o ID da seção a ser mostrada (ex: 'home-section')
+                showSection(sectionId); // Chama a função para exibir a seção
+            });
+        });
+
+        // --- Lógica do Minijogo de Memória Simples ---
+        const startGameButton = document.getElementById('start-game-button');
+        const gameBoard = document.getElementById('game-board');
+        const gameMessage = document.getElementById('game-message');
+
+        const cardValues = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H'];
+        let shuffledCards = [];
+        let flippedCards = [];
+        let matchedCards = [];
+        let canFlip = true;
+
+        // Função para embaralhar as cartas
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Função para criar o tabuleiro do jogo
+        function createGameBoard() {
+            gameBoard.innerHTML = ''; // Limpa o tabuleiro existente
+            shuffledCards = shuffle([...cardValues]); // Embaralha as cartas
+            flippedCards = [];
+            matchedCards = [];
+            canFlip = true;
+            gameMessage.textContent = 'Encontre os pares!'; // Mensagem do jogo
+            gameBoard.classList.remove('hidden'); // Mostra o tabuleiro
+
+            shuffledCards.forEach((value, index) => {
+                const card = document.createElement('div');
+                card.classList.add('memory-card', 'bg-pink-300', 'rounded-lg', 'flex', 'items-center', 'justify-center', 'text-4xl', 'font-bold', 'text-white', 'cursor-pointer', 'select-none', 'h-24', 'w-24', 'transform', 'transition-transform', 'duration-300', 'ease-in-out');
+                card.dataset.value = value;
+                card.dataset.index = index;
+                card.textContent = '?'; // Inicia com o ponto de interrogação
+                card.addEventListener('click', flipCard);
+                gameBoard.appendChild(card);
+            });
+        }
+
+        // Função para virar uma carta
+        function flipCard() {
+            if (!canFlip || flippedCards.length >= 2 || this.classList.contains('flipped') || this.classList.contains('matched')) {
+                return; // Não permite virar se não puder, se já houver 2 viradas, se já estiver virada ou se já estiver combinada
+            }
+
+            this.textContent = this.dataset.value; // Mostra o valor da carta
+            this.classList.add('flipped', 'bg-pink-500'); // Adiciona classes de virada
+            flippedCards.push(this); // Adiciona a carta à lista de cartas viradas
+
+            if (flippedCards.length === 2) {
+                canFlip = false; // Impede virar mais cartas
+                setTimeout(checkForMatch, 1000); // Verifica se há uma combinação após 1 segundo
+            }
+        }
+
+        // Função para verificar se as cartas viradas são um par
+        function checkForMatch() {
+            const [card1, card2] = flippedCards;
+            if (card1.dataset.value === card2.dataset.value) {
+                // Se forem um par
+                card1.classList.add('matched', 'bg-green-500'); // Marca como combinadas
+                card2.classList.add('matched', 'bg-green-500');
+                matchedCards.push(card1, card2); // Adiciona às cartas combinadas
+
+                if (matchedCards.length === shuffledCards.length) {
+                    gameMessage.textContent = 'Parabéns! Você venceu!'; // Atualiza a mensagem de vitória
+                    setTimeout(() => {
+                        gameBoard.classList.add('hidden'); // Oculta o tabuleiro após um tempo
+                        gameMessage.textContent = 'Clique no botão para iniciar o jogo!'; // Reseta a mensagem do jogo
+                    }, 2000);
+                }
+            } else {
+                // Se não forem um par
+                card1.textContent = '?'; // Vira de volta
+                card2.textContent = '?';
+                card1.classList.remove('flipped', 'bg-pink-500'); // Remove classes de virada
+                card2.classList.remove('flipped', 'bg-pink-500');
+            }
+            flippedCards = []; // Limpa as cartas viradas
+            canFlip = true; // Permite virar novamente
+        }
+
+        // Evento para iniciar o jogo
+        startGameButton.addEventListener('click', createGameBoard);
+
+    </script>
+</body>
+</html>
