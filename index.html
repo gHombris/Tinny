@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-key="appTitle">Hello Tinny's - Personalização e Acessibilidade</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Define a fonte padrão para o corpo do documento */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilos para o tema escuro, aplicados quando a classe 'dark' está presente no corpo */
+        body.dark {
+            background-color: #1a202c; /* Fundo escuro */
+            color: #e2e8f0; /* Texto claro */
+        }
+        body.dark .sidebar {
+            background-color: #2d3748; /* Sidebar mais escura no tema escuro */
+        }
+        body.dark .top-nav, body.dark .main-content {
+            background-color: #2d3748; /* Fundo do conteúdo e navegação mais escuros */
+            color: #e2e8f0; /* Texto claro */
+        }
+        body.dark .top-nav a, body.dark .sidebar a {
+            color: #e2e8f0; /* Links claros no tema escuro */
+        }
+        body.dark .content-card {
+            background-color: #4a5568; /* Cartões de conteúdo mais escuros */
+        }
+        /* Estilos para os modos daltônicos, aplicando filtros SVG */
+        .protanopia-mode {
+            filter: url(#protanopia);
+        }
+        .deuteranopia-mode {
+            filter: url(#deuteranopia);
+        }
+        .tritanopia-mode {
+            filter: url(#tritanopia);
+        }
+        /* Estilo para alto contraste, aplicado quando a classe 'high-contrast' está presente */
+        .high-contrast {
+            background-color: #000 !important; /* Fundo preto */
+            color: #fff !important; /* Texto branco */
+        }
+        .high-contrast .sidebar, .high-contrast .top-nav, .high-contrast .main-content {
+            background-color: #000 !important; /* Elementos de fundo pretos */
+            color: #fff !important; /* Texto branco */
+        }
+        .high-contrast a, .high-contrast button, .high-contrast select {
+            color: #00ffff !important; /* Links e botões ciano brilhante */
+            border-color: #00ffff !important; /* Bordas ciano brilhante */
+        }
+        .high-contrast input[type="radio"]:checked + label {
+            background-color: #00ffff !important; /* Fundo ciano para rádio selecionado */
+            color: #000 !important; /* Texto preto */
+        }
+        /* Estilos para o botão de minijogo */
+        .minigame-button {
+            padding: 10px 20px;
+            border-radius: 8px;
+            background-color: #6a0dad; /* Roxo vibrante */
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .minigame-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        .minigame-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <svg style="height: 0; width: 0; position: absolute; overflow: hidden;">
+        <filter id="protanopia">
+            <feColorMatrix type="matrix"
+                values="0.567 0.433 0 0 0
+                        0.558 0.442 0 0 0
+                        0 0 1 0 0
+                        0 0 0 1 0"/>
+        </filter>
+        <filter id="deuteranopia">
+            <feColorMatrix type="matrix"
+                values="0.625 0.375 0 0 0
+                        0.7 0.3 0 0 0
+                        0 0 1 0 0
+                        0 0 0 1 0"/>
+        </filter>
+        <filter id="tritanopia">
+            <feColorMatrix type="matrix"
+                values="0.95 0.05 0 0 0
+                        0 0.433 0.567 0 0
+                        0 0.475 0.525 0 0
+                        0 0 0 1 0"/>
+        </filter>
+    </svg>
+
+    <div class="flex flex-col md:flex-row min-h-screen w-full">
+        <aside class="sidebar bg-pink-400 text-white p-6 w-full md:w-64 flex-shrink-0 rounded-r-lg shadow-lg">
+            <h2 class="text-2xl font-bold mb-6 text-center" data-key="personalizationTitle">Personalização</h2>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3" data-key="fontSizeTitle">Tamanho da fonte</h3>
+                <div class="flex flex-col space-y-2">
+                    <div class="flex items-center">
+                        <input type="radio" id="font-small" name="font-size" value="small" class="mr-2" checked>
+                        <label for="font-small" class="cursor-pointer" data-key="fontSizeSmall">Pequeno</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" id="font-medium" name="font-size" value="medium" class="mr-2">
+                        <label for="font-medium" class="cursor-pointer" data-key="fontSizeMedium">Médio</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" id="font-large" name="font-size" value="large" class="mr-2">
+                        <label for="font-large" class="cursor-pointer" data-key="fontSizeLarge">Grande</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6 flex items-center justify-between">
+                <h3 class="text-lg font-semibold" data-key="highContrastTitle">Alto Contraste</h3>
+                <label class="switch">
+                    <input type="checkbox" id="high-contrast-toggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3" data-key="colorBlindModeTitle">Modo Daltônico</h3>
+                <div class="flex flex-col space-y-2">
+                    <div class="flex items-center">
+                        <input type="radio" id="color-blind-none" name="color-blind-type" value="none" class="mr-2" checked>
+                        <label for="color-blind-none" class="cursor-pointer" data-key="colorBlindNone">Nenhum</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" id="color-blind-protanopia" name="color-blind-type" value="protanopia" class="mr-2">
+                        <label for="color-blind-protanopia" class="cursor-pointer" data-key="colorBlindProtanopia">Protanopia</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" id="color-blind-deuteranopia" name="color-blind-type" value="deuteranopia" class="mr-2">
+                        <label for="color-blind-deuteranopia" class="cursor-pointer" data-key="colorBlindDeuteranopia">Deuteranopia</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" id="color-blind-tritanopia" name="color-blind-type" value="tritanopia" class="mr-2">
+                        <label for="color-blind-tritanopia" class="cursor-pointer" data-key="colorBlindTritanopia">Tritanopia</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3" data-key="languagesTitle">Idiomas</h3>
+                <select id="language-select" class="w-full p-2 rounded-md bg-pink-300 text-white focus:outline-none focus:ring-2 focus:ring-pink-200">
+                    <option value="pt" data-key="langPT">Português</option>
+                    <option value="en" data-key="langEN">English</option>
+                    <option value="es" data-key="langES">Español</option>
+                    <option value="fr" data-key="langFR">Français</option>
+                    <option value="ru" data-key="langRU">Русский</option>
+                </select>
+            </div>
+
+            <div class="mb-6 flex items-center justify-between">
+                <h3 class="text-lg font-semibold" data-key="darkThemeTitle">Tema Escuro</h3>
+                <label class="switch">
+                    <input type="checkbox" id="dark-theme-toggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="mb-6 flex items-center justify-between">
+                <h3 class="text-lg font-semibold" data-key="lightThemeTitle">Tema Claro</h3>
+                <label class="switch">
+                    <input type="checkbox" id="light-theme-toggle" checked>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+
+            <style>
+                .switch {
+                    position: relative;
+                    display: inline-block;
+                    width: 40px;
+                    height: 24px;
+                }
+                .switch input {
+                    opacity: 0;
+                    width: 0;
+                    height: 0;
+                }
+                .slider {
+                    position: absolute;
+                    cursor: pointer;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background-color: #ccc;
+                    -webkit-transition: .4s;
+                    transition: .4s;
+                    border-radius: 24px;
+                }
+                .slider:before {
+                    position: absolute;
+                    content: "";
+                    height: 16px;
+                    width: 16px;
+                    left: 4px;
+                    bottom: 4px;
+                    background-color: white;
+                    -webkit-transition: .4s;
+                    transition: .4s;
+                    border-radius: 50%;
+                }
+                input:checked + .slider {
+                    background-color: #8B5CF6; /* Roxo vibrante quando ativado */
+                }
+                input:focus + .slider {
+                    box-shadow: 0 0 1px #8B5CF6;
+                }
+                input:checked + .slider:before {
+                    -webkit-transform: translateX(16px);
+                    -ms-transform: translateX(16px);
+                    transform: translateX(16px);
+                }
+            </style>
+        </aside>
+
+        <main class="flex-grow flex flex-col bg-white rounded-l-lg shadow-lg">
+            <nav class="top-nav bg-pink-200 p-4 flex justify-end items-center rounded-tl-lg">
+                <ul class="flex space-x-6">
+                    <li><a href="#home" class="text-gray-700 hover:text-pink-700 font-medium text-lg transition duration-300 ease-in-out" data-section="home" data-key="navHome">Início</a></li>
+                    <li><a href="#about" class="text-gray-700 hover:text-pink-700 font-medium text-lg transition duration-300 ease-in-out" data-section="about" data-key="navAbout">Sobre</a></li>
+                    <li><a href="#characters" class="text-gray-700 hover:text-pink-700 font-medium text-lg transition duration-300 ease-in-out" data-section="characters" data-key="navCharacters">Personagens</a></li>
+                    <li><a href="#minigames" class="text-gray-700 hover:text-pink-700 font-medium text-lg transition duration-300 ease-in-out" data-section="minigames" data-key="navMinigames">Minijogos</a></li>
+                </ul>
+            </nav>
+
+            <section id="content-display" class="p-8 flex-grow overflow-y-auto">
+                <div id="home-section" class="content-card bg-pink-100 p-8 rounded-lg shadow-md transition-all duration-300 ease-in-out">
+                    <h1 class="text-4xl font-extrabold text-pink-700 mb-6" data-key="homeTitle">A Importância da Personalização do Usuário em Sites</h1>
+                    <p class="text-lg leading-relaxed text-gray-700 mb-4" data-key="homeParagraph1">A personalização do usuário em sites é crucial para melhorar a experiência de navegação, tornando o ambiente digital mais acessível e agradável. Ao adaptar o site às preferências individuais dos usuários, como aparência, idioma e acessibilidade, os desenvolvedores podem atender melhor às necessidades de cada pessoa, promovendo uma interação mais satisfatória e inclusiva.</p>
+                    <p class="text-lg leading-relaxed text-gray-700" data-key="homeParagraph2">Um site personalizado não é apenas esteticamente agradável, mas também funcionalmente superior, pois permite que os usuários se sintam mais conectados e no controle de sua experiência online. Isso leva a maior engajamento, retenção e satisfação geral.</p>
+                </div>
+
+                <div id="about-section" class="hidden content-card bg-blue-100 p-8 rounded-lg shadow-md transition-all duration-300 ease-in-out">
+                    <h1 class="text-4xl font-extrabold text-blue-700 mb-6" data-key="aboutTitle">Sobre a Hello Tinny's</h1>
+                    <p class="text-lg leading-relaxed text-gray-700 mb-4" data-key="aboutParagraph1">Na Hello Tinny's, nossa missão é criar um mundo digital mais inclusivo e acessível para todos. Acreditamos que a tecnologia deve ser uma ferramenta de empoderamento, e não uma barreira. Trabalhamos incansavelmente para desenvolver soluções inovadoras que personalizam a experiência do usuário, garantindo que cada indivíduo possa navegar e interagir com o conteúdo online de forma confortável e eficaz.</p>
+                    <h2 class="text-3xl font-bold text-blue-600 mt-8 mb-4" data-key="teamTitle">Nossa Equipe</h2>
+                    <p class="text-lg leading-relaxed text-gray-700 mb-4" data-key="teamParagraph">Somos uma equipe apaixonada de desenvolvedores, designers e especialistas em acessibilidade, dedicados a transformar a web. Nossa diversidade de talentos e perspectivas nos permite abordar os desafios da acessibilidade de forma criativa e abrangente.</p>
+                    <h2 class="text-3xl font-bold text-blue-600 mt-8 mb-4" data-key="valuesTitle">Nossos Valores</h2>
+                    <ul class="list-disc list-inside text-lg leading-relaxed text-gray-700">
+                        <li data-key="valueInclusion">Inclusão: Todos merecem acesso igual à informação e tecnologia.</li>
+                        <li data-key="valueInnovation">Inovação: Buscamos constantemente novas maneiras de melhorar a acessibilidade.</li>
+                        <li data-key="valueEmpathy">Empatia: Entendemos e atendemos às necessidades de nossos usuários.</li>
+                        <li data-key="valueQuality">Qualidade: Comprometemo-nos com a excelência em tudo o que fazemos.</li>
+                    </ul>
+                </div>
+
+                <div id="characters-section" class="hidden content-card bg-green-100 p-8 rounded-lg shadow-md transition-all duration-300 ease-in-out">
+                    <h1 class="text-4xl font-extrabold text-green-700 mb-6" data-key="charactersMainTitle">Conheça Nossos Personagens</h1>
+                    <p class="text-lg leading-relaxed text-gray-700 mb-4" data-key="charactersIntro">Nossos personagens são mais do que apenas ilustrações; eles representam as diversas funcionalidades de acessibilidade que a Hello Tinny's oferece. Cada um deles é um guia amigável para tornar sua experiência online única e adaptada às suas necessidades.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+                        <div class="character-card bg-white p-6 rounded-lg shadow-md text-center">
+                            <i class="fas fa-font text-5xl text-green-500 mb-4"></i>
+                            <h2 class="text-2xl font-bold text-green-600 mb-2" data-key="charTinaTitle">Tina, a Ajustadora de Fontes</h2>
+                            <p class="text-gray-700" data-key="charTinaDesc">Tina te ajuda a encontrar o tamanho de fonte perfeito para uma leitura confortável, seja ela pequena, média ou grande.</p>
+                        </div>
+                        <div class="character-card bg-white p-6 rounded-lg shadow-md text-center">
+                            <i class="fas fa-adjust text-5xl text-green-500 mb-4"></i>
+                            <h2 class="text-2xl font-bold text-green-600 mb-2" data-key="charContrastTitle">Contraste, o Mestre da Visibilidade</h2>
+                            <p class="text-gray-700" data-key="charContrastDesc">Contraste garante que o texto e o fundo tenham a combinação ideal para máxima clareza visual.</p>
+                        </div>
+                        <div class="character-card bg-white p-6 rounded-lg shadow-md text-center">
+                            <i class="fas fa-eye-dropper text-5xl text-green-500 mb-4"></i>
+                            <h2 class="text-2xl font-bold text-green-600 mb-2" data-key="charColorBlindTitle">Cromus, o Amigo Daltônico</h2>
+                            <p class="text-gray-700" data-key="charColorBlindDesc">Cromus ajusta as cores da página para que sejam mais facilmente distinguíveis por pessoas com daltonismo.</p>
+                        </div>
+                        <div class="character-card bg-white p-6 rounded-lg shadow-md text-center">
+                            <i class="fas fa-language text-5xl text-green-500 mb-4"></i>
+                            <h2 class="text-2xl font-bold text-green-600 mb-2" data-key="charLingoTitle">Lingo, o Poliglota</h2>
+                            <p class="text-gray-700" data-key="charLingoDesc">Lingo te ajuda a navegar pelo site no seu idioma preferido, conectando você com o mundo.</p>
+                        </div>
+                        <div class="character-card bg-white p-6 rounded-lg shadow-md text-center">
+                            <i class="fas fa-moon text-5xl text-green-500 mb-4"></i>
+                            <h2 class="text-2xl font-bold text-green-600 mb-2" data-key="charNocturneTitle">Nocturne, o Guardião da Noite</h2>
+                            <p class="text-gray-700" data-key="charNocturneDesc">Nocturne oferece o tema escuro para reduzir o cansaço visual em ambientes com pouca luz.</p>
+                        </div>
+                        <div class="character-card bg-white p-6 rounded-lg shadow-md text-center">
+                            <i class="fas fa-sun text-5xl text-green-500 mb-4"></i>
+                            <h2 class="text-2xl font-bold text-green-600 mb-2" data-key="charLuminusTitle">Luminus, o Iluminador</h2>
+                            <p class="text-gray-700" data-key="charLuminusDesc">Luminus traz o tema claro, ideal para ambientes bem iluminados e para quem prefere cores vibrantes.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="minigames-section" class="hidden content-card bg-purple-100 p-8 rounded-lg shadow-md transition-all duration-300 ease-in-out">
+                    <h1 class="text-4xl font-extrabold text-purple-700 mb-6" data-key="minigamesTitle">Minijogos Acessíveis</h1>
+                    <p class="text-lg leading-relaxed text-gray-700 mb-4" data-key="minigamesIntro">Divirta-se com nossa coleção de minijogos projetados com a acessibilidade em mente. Eles são simples, divertidos e feitos para todos!</p>
+                    <div class="flex flex-col items-center justify-center mt-8 space-y-6">
+                        <div class="game-area bg-white p-8 rounded-lg shadow-lg text-center w-full max-w-md">
+                            <h2 class="text-3xl font-bold text-purple-600 mb-4" data-key="memoryGameTitle">Jogo da Memória Simples</h2>
+                            <p id="game-message" class="text-lg text-gray-700 mb-6" data-key="memoryGameMessage">Clique no botão para iniciar o jogo!</p>
+                            <button id="start-game-button" class="minigame-button" data-key="startGameButton">Iniciar Jogo</button>
+                            <div id="game-board" class="grid grid-cols-4 gap-4 mt-6 hidden">
+                                </div>
+                        </div>
+                        </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Seleciona elementos HTML importantes para interatividade
+        const body = document.body; // O elemento <body> para aplicar classes de tema e contraste
+        const fontSizeRadios = document.querySelectorAll('input[name="font-size"]'); // Botões de rádio para tamanho da fonte
+        const highContrastToggle = document.getElementById('high-contrast-toggle'); // Checkbox para alto contraste
+        const colorBlindTypeRadios = document.querySelectorAll('input[name="color-blind-type"]'); // Botões de rádio para tipos de daltonismo
+        const languageSelect = document.getElementById('language-select'); // Dropdown para seleção de idioma
+        const darkThemeToggle = document.getElementById('dark-theme-toggle'); // Checkbox para tema escuro
+        const lightThemeToggle = document.getElementById('light-theme-toggle'); // Checkbox para tema claro
+        const navLinks = document.querySelectorAll('.top-nav a'); // Todos os links da navegação superior
+        const contentSections = document.querySelectorAll('#content-display > div'); // Todas as divs de conteúdo
+
+        // Objeto de traduções para diferentes idiomas
+        const translations = {
+            pt: {
+                appTitle: 'Hello Tinny\'s - Personalização e Acessibilidade',
+                personalizationTitle: 'Personalização',
+                fontSizeTitle: 'Tamanho da fonte',
+                fontSizeSmall: 'Pequeno',
+                fontSizeMedium: 'Médio',
+                fontSizeLarge: 'Grande',
+                highContrastTitle: 'Alto Contraste',
+                colorBlindModeTitle: 'Modo Daltônico',
+                colorBlindNone: 'Nenhum',
+                colorBlindProtanopia: 'Protanopia',
+                colorBlindDeuteranopia: 'Deuteranopia',
+                colorBlindTritanopia: 'Tritanopia',
+                languagesTitle: 'Idiomas',
+                langPT: 'Português',
+                langEN: 'English',
+                langES: 'Español',
+                langFR: 'Français',
+                langRU: 'Русский',
+                darkThemeTitle: 'Tema Escuro',
+                lightThemeTitle: 'Tema Claro',
+                navHome: 'Início',
+                navAbout: 'Sobre',
+                navCharacters: 'Personagens',
+                navMinigames: 'Minijogos',
+                homeTitle: 'A Importância da Personalização do Usuário em Sites',
+                homeParagraph1: 'A personalização do usuário em sites é crucial para melhorar a experiência de navegação, tornando o ambiente digital mais acessível e agradável. Ao adaptar o site às preferências individuais dos usuários, como aparência, idioma e acessibilidade, os desenvolvedores podem atender melhor às necessidades de cada pessoa, promovendo uma interação mais satisfatória e inclusiva.',
+                homeParagraph2: 'Um site personalizado não é apenas esteticamente agradável, mas também funcionalmente superior, pois permite que os usuários se sintam mais conectados e no controle de sua experiência online. Isso leva a maior engajamento, retenção e satisfação geral.',
+                aboutTitle: 'Sobre a Hello Tinny\'s',
+                aboutParagraph1: 'Na Hello Tinny\'s, nossa missão é criar um mundo digital mais inclusivo e acessível para todos. Acreditamos que a tecnologia deve ser uma ferramenta de empoderamento, e não uma barreira. Trabalhamos incansavelmente para desenvolver soluções inovadoras que personalizam a experiência do usuário, garantindo que cada indivíduo possa navegar e interagir com o conteúdo online de forma confortável e eficaz.',
+                teamTitle: 'Nossa Equipe',
+                teamParagraph: 'Somos uma equipe apaixonada de desenvolvedores, designers e especialistas em acessibilidade, dedicados a transformar a web. Nossa diversidade de talentos e perspectivas nos permite abordar os desafios da acessibilidade de forma criativa e abrangente.',
+                valuesTitle: 'Nossos Valores',
+                valueInclusion: 'Inclusão: Todos merecem acesso igual à informação e tecnologia.',
+                valueInnovation: 'Inovação: Buscamos constantemente novas maneiras de melhorar a acessibilidade.',
+                valueEmpathy: 'Empatia: Entendemos e atendemos às necessidades de nossos usuários.',
+                valueQuality: 'Qualidade: Comprometemo-nos com a excelência em tudo o que fazemos.',
+                charactersMainTitle: 'Conheça Nossos Personagens',
+                charactersIntro: 'Nossos personagens são mais do que apenas ilustrações; eles representam as diversas funcionalidades de acessibilidade que a Hello Tinny\'s oferece. Cada um deles é um guia amigável para tornar sua experiência online única e adaptada às suas necessidades.',
+                charTinaTitle: 'Tina, a Ajustadora de Fontes',
+                charTinaDesc: 'Tina te ajuda a encontrar o tamanho de fonte perfeito para uma leitura confortável, seja ela pequena, média ou grande.',
+                charContrastTitle: 'Contraste, o Mestre da Visibilidade',
+                charContrastDesc: 'Contraste garante que o texto e o fundo tenham a combinação ideal para máxima clareza visual.',
+                charColorBlindTitle: 'Cromus, o Amigo Daltônico',
+                charColorBlindDesc: 'Cromus ajusta as cores da página para que sejam mais facilmente distinguíveis por pessoas com daltonismo.',
+                charLingoTitle: 'Lingo, o Poliglota',
+                charLingoDesc: 'Lingo te ajuda a navegar pelo site no seu idioma preferido, conectando você com o mundo.',
+                charNocturneTitle: 'Nocturne, o Guardião da Noite',
+                charNocturneDesc: 'Nocturne oferece o tema escuro para reduzir o cansaço visual em ambientes com pouca luz.',
+                charLuminusTitle: 'Luminus, o Iluminador',
+                charLuminusDesc: 'Luminus traz o tema claro, ideal para ambientes bem iluminados e para quem prefere cores vibrantes.',
+                minigamesTitle: 'Minijogos Acessíveis',
+                minigamesIntro: 'Divirta-se com nossa coleção de minijogos projetados com a acessibilidade em mente. Eles são simples, divertidos e feitos para todos!',
+                memoryGameTitle: 'Jogo da Memória Simples',
+                memoryGameMessage: 'Clique no botão para iniciar o jogo!',
+                startGameButton: 'Iniciar Jogo'
+            },
+            en: {
+                appTitle: 'Hello Tinny\'s - Personalization and Accessibility',
+                personalizationTitle: 'Personalization',
+                fontSizeTitle: 'Font Size',
+                fontSizeSmall: 'Small',
+                fontSizeMedium: 'Medium',
+                fontSizeLarge: 'Large',
+                highContrastTitle: 'High Contrast',
+                colorBlindModeTitle: 'Color Blind Mode',
+                colorBlindNone: 'None',
+                colorBlindProtanopia: 'Protanopia',
+                colorBlindDeuteranopia: 'Deuteranopia',
+                colorBlindTritanopia: 'Tritanopia',
+                languagesTitle: 'Languages',
+                langPT: 'Portuguese',
+                langEN: 'English',
+                langES: 'Spanish',
+                langFR: 'French',
+                langRU: 'Russian',
+                darkThemeTitle: 'Dark Theme',
+                lightThemeTitle: 'Light Theme',
+                navHome: 'Home',
+                navAbout: 'About',
+                navCharacters: 'Characters',
+                navMinigames: 'Minigames',
+                homeTitle: 'The Importance of User Personalization on Websites',
+                homeParagraph1: 'User personalization on websites is crucial for enhancing the browsing experience, making the digital environment more accessible and enjoyable. By adapting the site to individual user preferences, such as appearance, language, and accessibility, developers can better meet each person\'s needs, promoting a more satisfying and inclusive interaction.',
+                homeParagraph2: 'A personalized website is not only aesthetically pleasing but also functionally superior, as it allows users to feel more connected and in control of their online experience. This leads to greater engagement, retention, and overall satisfaction.',
+                aboutTitle: 'About Hello Tinny\'s',
+                aboutParagraph1: 'At Hello Tinny\'s, our mission is to create a more inclusive and accessible digital world for everyone. We believe that technology should be a tool for empowerment, not a barrier. We work tirelessly to develop innovative solutions that personalize the user experience, ensuring that every individual can navigate and interact with online content comfortably and effectively.',
+                teamTitle: 'Our Team',
+                teamParagraph: 'We are a passionate team of developers, designers, and accessibility specialists, dedicated to transforming the web. Our diversity of talents and perspectives allows us to approach accessibility challenges creatively and comprehensively.',
+                valuesTitle: 'Our Values',
+                valueInclusion: 'Inclusion: Everyone deserves equal access to information and technology.',
+                valueInnovation: 'Innovation: We constantly seek new ways to improve accessibility.',
+                valueEmpathy: 'Empathy: We understand and meet the needs of our users.',
+                valueQuality: 'Quality: We are committed to excellence in everything we do.',
+                charactersMainTitle: 'Meet Our Characters',
+                charactersIntro: 'Our characters are more than just illustrations; they represent the various accessibility features that Hello Tinny\'s offers. Each one is a friendly guide to make your online experience unique and tailored to your needs.',
+                charTinaTitle: 'Tina, the Font Adjuster',
+                charTinaDesc: 'Tina helps you find the perfect font size for comfortable reading, whether it\'s small, medium, or large.',
+                charContrastTitle: 'Contrast, the Visibility Master',
+                charContrastDesc: 'Contrast ensures that text and background have the ideal combination for maximum visual clarity.',
+                charColorBlindTitle: 'Cromus, the Color Blind Friend',
+                charColorBlindDesc: 'Cromus adjusts page colors to be more easily distinguishable for people with color blindness.',
+                charLingoTitle: 'Lingo, the Polyglot',
+                charLingoDesc: 'Lingo helps you navigate the site in your preferred language, connecting you with the world.',
+                charNocturneTitle: 'Nocturne, the Night Guardian',
+                charNocturneDesc: 'Nocturne offers the dark theme to reduce eye strain in low-light environments.',
+                charLuminusTitle: 'Luminus, the Illuminator',
+                charLuminusDesc: 'Luminus brings the light theme, ideal for well-lit environments and for those who prefer vibrant colors.',
+                minigamesTitle: 'Accessible Minigames',
+                minigamesIntro: 'Have fun with our collection of minigames designed with accessibility in mind. They are simple, fun, and made for everyone!',
+                memoryGameTitle: 'Simple Memory Game',
+                memoryGameMessage: 'Click the button to start the game!',
+                startGameButton: 'Start Game'
+            },
+            es: {
+                appTitle: 'Hello Tinny\'s - Personalización y Accesibilidad',
+                personalizationTitle: 'Personalización',
+                fontSizeTitle: 'Tamaño de fuente',
+                fontSizeSmall: 'Pequeño',
+                fontSizeMedium: 'Mediano',
+                fontSizeLarge: 'Grande',
+                highContrastTitle: 'Alto Contraste',
+                colorBlindModeTitle: 'Modo Daltónico',
+                colorBlindNone: 'Ninguno',
+                colorBlindProtanopia: 'Protanopia',
+                colorBlindDeuteranopia: 'Deuteranopia',
+                colorBlindTritanopia: 'Tritanopia',
+                languagesTitle: 'Idiomas',
+                langPT: 'Portugués',
+                langEN: 'Inglés',
+                langES: 'Español',
+                langFR: 'Francés',
+                langRU: 'Ruso',
+                darkThemeTitle: 'Tema Oscuro',
+                lightThemeTitle: 'Tema Claro',
+                navHome: 'Inicio',
+                navAbout: 'Sobre',
+                navCharacters: 'Personajes',
+                navMinigames: 'Minijuegos',
+                homeTitle: 'La Importancia de la Personalización del Usuario en Sitios Web',
+                homeParagraph1: 'La personalización del usuario en los sitios web es crucial para mejorar la experiencia de navegación, haciendo que el entorno digital sea más accesible y agradable. Al adaptar el sitio a las preferencias individuales de los usuarios, como la apariencia, el idioma y la accesibilidad, los desarrolladores pueden satisfacer mejor las necesidades de cada persona, promoviendo una interacción más satisfactoria e inclusiva.',
+                homeParagraph2: 'Un sitio web personalizado no solo es estéticamente agradable, sino también funcionalmente superior, ya que permite a los usuarios sentirse más conectados y en control de su experiencia en línea. Esto conduce a un mayor compromiso, retención y satisfacción general.',
+                aboutTitle: 'Acerca de Hello Tinny\'s',
+                aboutParagraph1: 'En Hello Tinny\'s, nuestra misión es crear un mundo digital más inclusivo y accesible para todos. Creemos que la tecnología debe ser una herramienta de empoderamiento, no una barrera. Trabajamos incansablemente para desarrollar soluciones innovadoras que personalicen la experiencia del usuario, asegurando que cada individuo pueda navegar e interactuar con el contenido en línea de manera cómoda y efectiva.',
+                teamTitle: 'Nuestro Equipo',
+                teamParagraph: 'Somos un equipo apasionado de desarrolladores, diseñadores y especialistas en accesibilidad, dedicados a transformar la web. Nuestra diversidad de talentos y perspectivas nos permite abordar los desafíos de la accesibilidad de manera creativa y exhaustiva.',
+                valuesTitle: 'Nuestros Valores',
+                valueInclusion: 'Inclusión: Todos merecen igual acceso a la información y la tecnología.',
+                valueInnovation: 'Innovación: Buscamos constantemente nuevas formas de mejorar la accesibilidad.',
+                valueEmpathy: 'Empatía: Entendemos y satisfacemos las necesidades de nuestros usuarios.',
+                valueQuality: 'Calidad: Nos comprometemos con la excelencia en todo lo que hacemos.',
+                charactersMainTitle: 'Conoce a Nuestros Personajes',
+                charactersIntro: 'Nuestros personajes son más que simples ilustraciones; representan las diversas funcionalidades de accesibilidad que ofrece Hello Tinny\'s. Cada uno de ellos es una guía amigable para hacer que tu experiencia en línea sea única y adaptada a tus necesidades.',
+                charTinaTitle: 'Tina, la Ajustadora de Fuentes',
+                charTinaDesc: 'Tina te ayuda a encontrar el tamaño de fuente perfecto para una lectura cómoda, ya sea pequeña, mediana o grande.',
+                charContrastTitle: 'Contraste, el Maestro de la Visibilidad',
+                charContrastDesc: 'Contraste asegura que el texto y el fondo tengan la combinación ideal para una máxima claridad visual.',
+                charColorBlindTitle: 'Cromus, el Amigo Daltónico',
+                charColorBlindDesc: 'Cromus ajusta los colores de la página para que sean más fácilmente distinguibles por personas con daltonismo.',
+                charLingoTitle: 'Lingo, el Políglota',
+                charLingoDesc: 'Lingo te ayuda a navegar por el sitio en tu idioma preferido, conectándote con el mundo.',
+                charNocturneTitle: 'Nocturne, el Guardián de la Noche',
+                charNocturneDesc: 'Nocturne ofrece el tema oscuro para reducir la fatiga visual en entornos con poca luz.',
+                charLuminusTitle: 'Luminus, el Iluminador',
+                charLuminusDesc: 'Luminus trae el tema claro, ideal para entornos bien iluminados y para quienes prefieren colores vibrantes.',
+                minigamesTitle: 'Minijuegos Accesibles',
+                minigamesIntro: '¡Diviértete con nuestra colección de minijuegos diseñados pensando en la accesibilidad. Son simples, divertidos y hechos para todos!',
+                memoryGameTitle: 'Juego de Memoria Simple',
+                memoryGameMessage: '¡Haz clic en el botón para iniciar el juego!',
+                startGameButton: 'Iniciar Juego'
+            },
+            fr: {
+                appTitle: 'Hello Tinny\'s - Personnalisation et Accessibilité',
+                personalizationTitle: 'Personnalisation',
+                fontSizeTitle: 'Taille de la police',
+                fontSizeSmall: 'Petite',
+                fontSizeMedium: 'Moyenne',
+                fontSizeLarge: 'Grande',
+                highContrastTitle: 'Contraste Élevé',
+                colorBlindModeTitle: 'Mode Daltonien',
+                colorBlindNone: 'Aucun',
+                colorBlindProtanopia: 'Protanopie',
+                colorBlindDeuteranopia: 'Deuteranopie',
+                colorBlindTritanopia: 'Tritanopie',
+                languagesTitle: 'Langues',
+                langPT: 'Portugais',
+                langEN: 'Anglais',
+                langES: 'Espagnol',
+                langFR: 'Français',
+                langRU: 'Russe',
+                darkThemeTitle: 'Thème Sombre',
+                lightThemeTitle: 'Thème Clair',
+                navHome: 'Accueil',
+                navAbout: 'À propos',
+                navCharacters: 'Personnages',
+                navMinigames: 'Mini-jeux',
+                homeTitle: 'L\'importance de la personnalisation de l\'utilisateur sur les sites web',
+                homeParagraph1: 'La personnalisation de l\'utilisateur sur les sites web est cruciale pour améliorer l\'expérience de navigation, rendant l\'environnement numérique plus accessible et agréable. En adaptant le site aux préférences individuelles des utilisateurs, telles que l\'apparence, la langue et l\'accessibilité, les développeurs peuvent mieux répondre aux besoins de chaque personne, favorisant une interaction plus satisfaisante et inclusive.',
+                homeParagraph2: 'Un site web personnalisé est non seulement esthétiquement agréable, mais aussi fonctionnellement supérieur, car il permet aux utilisateurs de se sentir plus connectés et en contrôle de leur expérience en ligne. Cela conduit à un engagement, une rétention et une satisfaction globale accrus.',
+                aboutTitle: 'À propos de Hello Tinny\'s',
+                aboutParagraph1: 'Chez Hello Tinny\'s, notre mission est de créer un monde numérique plus inclusif et accessible pour tous. Nous croyons que la technologie doit être un outil d\'autonomisation, et non une barrière. Nous travaillons sans relâche pour développer des solutions innovantes qui personnalisent l\'expérience utilisateur, garantissant que chaque individu peut naviguer et interagir avec le contenu en ligne confortablement et efficacement.',
+                teamTitle: 'Notre Équipe',
+                teamParagraph: 'Nous sommes une équipe passionnée de développeurs, de designers et de spécialistes de l\'accessibilité, dédiés à transformer le web. Notre diversité de talents et de perspectives nous permet d\'aborder les défis de l\'accessibilité de manière créative et complète.',
+                valuesTitle: 'Nos Valeurs',
+                valueInclusion: 'Inclusion : Tout le monde mérite un accès égal à l\'information et à la technologie.',
+                valueInnovation: 'Innovation : Nous cherchons constamment de nouvelles façons d\'améliorer l\'accessibilité.',
+                valueEmpathy: 'Empatie : Nous comprenons et répondons aux besoins de nos utilisateurs.',
+                valueQuality: 'Qualité : Nous nous engageons à l\'excellence dans tout ce que nous faisons.',
+                charactersMainTitle: 'Découvrez Nos Personnages',
+                charactersIntro: 'Nos personnages sont plus que de simples illustrations ; ils représentent les diverses fonctionnalités d\'accessibilité offertes par Hello Tinny\'s. Chacun d\'eux est un guide amical pour rendre votre expérience en ligne unique et adaptée à vos besoins.',
+                charTinaTitle: 'Tina, l\'ajusteuse de polices',
+                charTinaDesc: 'Tina vous aide à trouver la taille de police parfaite pour une lecture confortable, qu\'elle soit petite, moyenne ou grande.',
+                charContrastTitle: 'Contraste, le maître de la visibilité',
+                charContrastDesc: 'Contraste garantit que le texte et l\'arrière-plan ont la combinaison idéale pour une clarté visuelle maximale.',
+                charColorBlindTitle: 'Cromus, l\'ami daltonien',
+                charColorBlindDesc: 'Cromus ajuste les couleurs de la page pour qu\'elles soient plus facilement distinguables par les personnes daltoniennes.',
+                charLingoTitle: 'Lingo, le polyglotte',
+                charLingoDesc: 'Lingo vous aide à naviguer sur le site dans votre langue préférée, vous connectant au monde.',
+                charNocturneTitle: 'Nocturne, le gardien de la nuit',
+                charNocturneDesc: 'Nocturne propose le thème sombre pour réduire la fatigue oculaire dans les environnements peu éclairés.',
+                charLuminusTitle: 'Luminus, l\'illuminateur',
+                charLuminusDesc: 'Luminus apporte le thème clair, ideal para ambientes bem iluminados e para quem prefere cores vibrantes.',
+                minigamesTitle: 'Mini-jeux Accessibles',
+                minigamesIntro: 'Amusez-vous avec notre collection de mini-jeux conçus dans un souci d\'accessibilité. Ils sont simples, amusants et faits pour tout le monde !',
+                memoryGameTitle: 'Jeu de mémoire simple',
+                memoryGameMessage: 'Cliquez sur le bouton pour démarrer le jeu !',
+                startGameButton: 'Démarrer le jeu'
+            },
+            ru: {
+                appTitle: 'Hello Tinny\'s - Персонализация и Доступность',
+                personalizationTitle: 'Персонализация',
+                fontSizeTitle: 'Размер шрифта',
+                fontSizeSmall: 'Маленький',
+                fontSizeMedium: 'Средний',
+                fontSizeLarge: 'Большой',
+                highContrastTitle: 'Высокий Контраст',
+                colorBlindModeTitle: 'Режим для Дальтоников',
+                colorBlindNone: 'Нет',
+                colorBlindProtanopia: 'Протанопия',
+                colorBlindDeuteranopia: 'Дейтеранопия',
+                colorBlindTritanopia: 'Тританопия',
+                languagesTitle: 'Языки',
+                langPT: 'Португальский',
+                langEN: 'Английский',
+                langES: 'Испанский',
+                langFR: 'Французский',
+                langRU: 'Русский',
+                darkThemeTitle: 'Темная Тема',
+                lightThemeTitle: 'Светлая Тема',
+                navHome: 'Главная',
+                navAbout: 'О нас',
+                navCharacters: 'Персонажи',
+                navMinigames: 'Мини-игры',
+                homeTitle: 'Важность персонализации пользователя на веб-сайтах',
+                homeParagraph1: 'Персонализация пользователя на веб-сайтах имеет решающее значение для улучшения опыта просмотра, делая цифровую среду более доступной и приятной. Адаптируя сайт к индивидуальным предпочтениям пользователей, таким как внешний вид, язык и доступность, разработчики могут лучше удовлетворять потребности каждого человека, способствуя более удовлетворительному и инклюзивному взаимодействию.',
+                homeParagraph2: 'Персонализированный веб-сайт не только эстетически приятен, но и функционально превосходит, поскольку он позволяет пользователям чувствовать себя более связанными и контролировать свой онлайн-опыт. Это приводит к большему вовлечению, удержанию и общему удовлетворению.',
+                aboutTitle: 'О Hello Tinny\'s',
+                aboutParagraph1: 'В Hello Tinny\'s наша миссия - создать более инклюзивный и доступный цифровой мир для всех. Мы считаем, что технологии должны быть инструментом расширения возможностей, а не барьером. Мы неустанно работаем над разработкой инновационных решений, которые персонализируют пользовательский опыт, гарантируя, что каждый человек может комфортно и эффективно перемещаться и взаимодействовать с онлайн-контентом.',
+                teamTitle: 'Наша Команда',
+                teamParagraph: 'Мы - увлеченная команда разработчиков, дизайнеров и специалистов по доступности, посвященная преобразованию Интернета. Наше разнообразие талантов и перспектив позволяет нам творчески и всесторонне подходить к проблемам доступности.',
+                valuesTitle: 'Наши Ценности',
+                valueInclusion: 'Инклюзивность: Каждый заслуживает равного доступа к информации и технологиям.',
+                valueInnovation: 'Инновации: Мы постоянно ищем новые способы улучшения доступности.',
+                valueEmpathy: 'Эмпатия: Мы понимаем и удовлетворяем потребности наших пользователей.',
+                valueQuality: 'Качество: Мы стремимся к совершенству во всем, что делаем.',
+                charactersMainTitle: 'Познакомьтесь с нашими персонажами',
+                charactersIntro: 'Наши персонажи - это больше, чем просто иллюстрации; они представляют различные функции доступности, которые предлагает Hello Tinny\'s. Каждый из них - дружелюбный проводник, который сделает ваш онлайн-опыт уникальным и адаптированным к вашим потребностям.',
+                charTinaTitle: 'Тина, регулировщик шрифта',
+                charTinaDesc: 'Тина поможет вам найти идеальный размер шрифта для комфортного чтения, будь то маленький, средний или большой.',
+                charContrastTitle: 'Контраст, мастер видимости',
+                charContrastDesc: 'Контраст гарантирует, что текст и фон имеют идеальное сочетание для максимальной визуальной четкости.',
+                charColorBlindTitle: 'Хромус, друг дальтоника',
+                charColorBlindDesc: 'Хромус настраивает цвета страницы так, чтобы они были более легко различимы для людей с дальтонизмом.',
+                charLingoTitle: 'Линго, полиглот',
+                charLingoDesc: 'Линго поможет вам перемещаться по сайту на предпочитаемом вами языке, связывая вас с миром.',
+                charNocturneTitle: 'Ноктюрн, хранитель ночи',
+                charNocturneDesc: 'Ноктюрн предлагает темную тему для снижения нагрузки на глаза в условиях низкой освещенности.',
+                charLuminusTitle: 'Люминус, осветитель',
+                charLuminusDesc: 'Люминус предлагает светлую тему, идеально подходящую для хорошо освещенных помещений и для тех, кто предпочитает яркие цвета.',
+                minigamesTitle: 'Доступные мини-jogos',
+                minigamesIntro: 'Развлекайтесь с нашей коллекцией мини-jogos, разработанных с учетом доступности. Они простые, веселые e feitos para todos!',
+                memoryGameTitle: 'Простая игра на память',
+                memoryGameMessage: 'Нажмите кнопку, чтобы начать игру!',
+                startGameButton: 'Начать игру'
+            }
+        };
+
+        // Função para atualizar o conteúdo da página com base no idioma selecionado
+        function updateContentLanguage(lang) {
+            // Itera sobre todos os elementos que possuem o atributo 'data-key'
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.dataset.key; // Obtém a chave de tradução do atributo 'data-key'
+                // Verifica se a chave existe para o idioma selecionado e atualiza o texto do elemento
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            // Atualiza o título da página
+            document.title = translations[lang].appTitle;
+        }
+
+        // Função para mostrar a seção de conteúdo correta e ocultar as outras
+        function showSection(sectionId) {
+            contentSections.forEach(section => {
+                // Oculta todas as seções
+                section.classList.add('hidden');
+            });
+            // Mostra a seção desejada
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+
+        // Define a seção inicial a ser exibida ao carregar a página
+        showSection('home-section'); // Exibe a seção "Início" por padrão
+        // Define o idioma inicial ao carregar a página (Português por padrão)
+        updateContentLanguage('pt');
+
+        // Adiciona um ouvinte de evento para cada link de navegação
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // Previne o comportamento padrão do link (navegar para outra página)
+                const sectionId = this.dataset.section + '-section'; // Obtém o ID da seção a ser mostrada (ex: 'home-section')
+                showSection(sectionId); // Chama a função para exibir a seção
+            });
+        });
+
+        // Lógica para ajustar o tamanho da fonte
+        fontSizeRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Remove todas as classes de tamanho de fonte existentes
+                body.classList.remove('text-sm', 'text-base', 'text-lg');
+                // Aplica a classe de tamanho de fonte com base na seleção do rádio
+                if (this.value === 'small') {
+                    body.classList.add('text-sm');
+                } else if (this.value === 'medium') {
+                    body.classList.add('text-base');
+                } else if (this.value === 'large') {
+                    body.classList.add('text-lg');
+                }
+            });
+        });
+
+        // Lógica para alternar o alto contraste
+        highContrastToggle.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.add('high-contrast'); // Adiciona a classe de alto contraste
+                // Desativa e desmarca os toggles de tema e modo daltônico para evitar conflitos visuais
+                darkThemeToggle.checked = false;
+                lightThemeToggle.checked = false;
+                // Desmarca todos os rádios de daltonismo e remove as classes
+                colorBlindTypeRadios.forEach(radio => radio.checked = false);
+                body.classList.remove('protanopia-mode', 'deuteranopia-mode', 'tritanopia-mode');
+                body.classList.remove('dark'); // Garante que o tema escuro não esteja ativo
+            } else {
+                body.classList.remove('high-contrast'); // Remove a classe de alto contraste
+                // Reativa o toggle de tema claro por padrão
+                lightThemeToggle.checked = true;
+            }
+        });
+
+        // Lógica para alternar os tipos de daltonismo
+        colorBlindTypeRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Remove todas as classes de modo daltônico existentes
+                body.classList.remove('protanopia-mode', 'deuteranopia-mode', 'tritanopia-mode');
+                // Desativa e desmarca os toggles de tema e alto contraste para evitar conflitos visuais
+                darkThemeToggle.checked = false;
+                lightThemeToggle.checked = false;
+                highContrastToggle.checked = false;
+                body.classList.remove('dark', 'high-contrast');
+
+                if (this.value !== 'none') {
+                    body.classList.add(this.value + '-mode'); // Adiciona a classe do modo daltônico selecionado
+                }
+            });
+        });
+
+        // Lógica para seleção de idioma
+        languageSelect.addEventListener('change', function() {
+            updateContentLanguage(this.value); // Chama a função para atualizar o idioma
+        });
+
+        // Lógica para alternar o tema escuro
+        darkThemeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.add('dark'); // Adiciona a classe 'dark' ao corpo
+                lightThemeToggle.checked = false; // Desmarca o tema claro
+                highContrastToggle.checked = false; // Desmarca alto contraste
+                // Desmarca todos os rádios de daltonismo e remove as classes
+                colorBlindTypeRadios.forEach(radio => radio.checked = false);
+                body.classList.remove('high-contrast', 'protanopia-mode', 'deuteranopia-mode', 'tritanopia-mode');
+            } else {
+                body.classList.remove('dark'); // Remove a classe 'dark'
+                lightThemeToggle.checked = true; // Marca o tema claro por padrão
+            }
+        });
+
+        // Lógica para alternar o tema claro
+        lightThemeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.remove('dark'); // Remove a classe 'dark'
+                darkThemeToggle.checked = false; // Desmarca o tema escuro
+                highContrastToggle.checked = false; // Desmarca alto contraste
+                // Desmarca todos os rádios de daltonismo e remove as classes
+                colorBlindTypeRadios.forEach(radio => radio.checked = false);
+                body.classList.remove('high-contrast', 'protanopia-mode', 'deuteranopia-mode', 'tritanopia-mode');
+            } else {
+                // Se o tema claro for desmarcado, e o tema escuro também não estiver marcado,
+                // pode-se definir um tema padrão ou forçar o tema escuro.
+                // Por simplicidade, vamos apenas garantir que o tema escuro não esteja ativo.
+                if (!darkThemeToggle.checked) {
+                    body.classList.remove('dark');
+                }
+            }
+        });
+
+        // Garante que apenas um dos toggles de tema esteja ativo por vez
+        darkThemeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                lightThemeToggle.checked = false;
+            } else if (!lightThemeToggle.checked) {
+                lightThemeToggle.checked = true; // Se o escuro for desmarcado, e o claro não estiver, ativa o claro
+            }
+        });
+
+        lightThemeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                darkThemeToggle.checked = false;
+            } else if (!darkThemeToggle.checked) {
+                darkThemeToggle.checked = true; // Se o claro for desmarcado, e o escuro não estiver, ativa o escuro
+            }
+        });
+
+
+        // --- Lógica do Minijogo de Memória Simples ---
+        const startGameButton = document.getElementById('start-game-button');
+        const gameBoard = document.getElementById('game-board');
+        const gameMessage = document.getElementById('game-message');
+
+        const cardValues = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H'];
+        let shuffledCards = [];
+        let flippedCards = [];
+        let matchedCards = [];
+        let canFlip = true;
+
+        // Função para embaralhar as cartas
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Função para criar o tabuleiro do jogo
+        function createGameBoard() {
+            gameBoard.innerHTML = ''; // Limpa o tabuleiro existente
+            shuffledCards = shuffle([...cardValues]); // Embaralha as cartas
+            flippedCards = [];
+            matchedCards = [];
+            canFlip = true;
+            gameMessage.textContent = translations[languageSelect.value].memoryGameMessage.replace('Clique no botão para iniciar o jogo!', 'Encontre os pares!'); // Atualiza a mensagem do jogo
+            gameBoard.classList.remove('hidden'); // Mostra o tabuleiro
+
+            shuffledCards.forEach((value, index) => {
+                const card = document.createElement('div');
+                card.classList.add('memory-card', 'bg-pink-300', 'rounded-lg', 'flex', 'items-center', 'justify-center', 'text-4xl', 'font-bold', 'text-white', 'cursor-pointer', 'select-none', 'h-24', 'w-24', 'transform', 'transition-transform', 'duration-300', 'ease-in-out');
+                card.dataset.value = value;
+                card.dataset.index = index;
+                card.textContent = '?'; // Inicia com o ponto de interrogação
+                card.addEventListener('click', flipCard);
+                gameBoard.appendChild(card);
+            });
+        }
+
+        // Função para virar uma carta
+        function flipCard() {
+            if (!canFlip || flippedCards.length >= 2 || this.classList.contains('flipped') || this.classList.contains('matched')) {
+                return; // Não permite virar se não puder, se já houver 2 viradas, se já estiver virada ou se já estiver combinada
+            }
+
+            this.textContent = this.dataset.value; // Mostra o valor da carta
+            this.classList.add('flipped', 'bg-pink-500'); // Adiciona classes de virada
+            flippedCards.push(this); // Adiciona a carta à lista de cartas viradas
+
+            if (flippedCards.length === 2) {
+                canFlip = false; // Impede virar mais cartas
+                setTimeout(checkForMatch, 1000); // Verifica se há uma combinação após 1 segundo
+            }
+        }
+
+        // Função para verificar se as cartas viradas são um par
+        function checkForMatch() {
+            const [card1, card2] = flippedCards;
+            if (card1.dataset.value === card2.dataset.value) {
+                // Se forem um par
+                card1.classList.add('matched', 'bg-green-500'); // Marca como combinadas
+                card2.classList.add('matched', 'bg-green-500');
+                matchedCards.push(card1, card2); // Adiciona às cartas combinadas
+
+                if (matchedCards.length === shuffledCards.length) {
+                    gameMessage.textContent = translations[languageSelect.value].memoryGameMessage.replace('Clique no botão para iniciar o jogo!', 'Parabéns! Você venceu!'); // Atualiza a mensagem de vitória
+                    setTimeout(() => {
+                        gameBoard.classList.add('hidden'); // Oculta o tabuleiro após um tempo
+                        gameMessage.textContent = translations[languageSelect.value].memoryGameMessage; // Reseta a mensagem do jogo
+                    }, 2000);
+                }
+            } else {
+                // Se não forem um par
+                card1.textContent = '?'; // Vira de volta
+                card2.textContent = '?';
+                card1.classList.remove('flipped', 'bg-pink-500'); // Remove classes de virada
+                card2.classList.remove('flipped', 'bg-pink-500');
+            }
+            flippedCards = []; // Limpa as cartas viradas
+            canFlip = true; // Permite virar novamente
+        }
+
+        // Evento para iniciar o jogo
+        startGameButton.addEventListener('click', createGameBoard);
+
+    </script>
+</body>
+</html>
